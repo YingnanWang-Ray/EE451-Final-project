@@ -1,0 +1,12 @@
+python -m torch.distributed.launch --nproc_per_node=2 --use_env train.py --world-size 8 --b 8
+python -m torch.distributed.launch --nproc_per_node=2 --use_env train.py --world-size 4 --b 4
+
+python detect.py --model_path result/model_0.pth --image_path imgs/101.jpg
+
+python detect.py --model_path result/model_0.pth --image_path imgs/102.jpg
+python detect.py --model_path result/model_0.pth --image_path imgs/101.jpg
+python detect.py --model_path result/model_0.pth --image_path imgs/101.jpg
+python detect.py --model_path /model_0.pth --image_path imgs/101.jpg
+
+
+python -m torch.distributed.launch --nproc_per_node=2 --use_env train.py --world-size 8 --b 8
