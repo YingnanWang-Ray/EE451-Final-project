@@ -1,7 +1,0 @@
-torch
-pycocotools
-opencv_python
-numpy
-torchvision
-Pillow
-vision
