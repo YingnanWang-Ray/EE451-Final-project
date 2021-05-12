@@ -48,8 +48,12 @@ def get_args():
         help="Use pre-trained models from the modelzoo",
         action="store_true",
     )
+    # distributed mode
     parser.add_argument('--distributed', default=True, help='if distribute or not')
     parser.add_argument('--parallel', default=False, help='if distribute or not')
+    # parallel mode
+    # parser.add_argument('--distributed', default=False, help='if distribute or not')
+    # parser.add_argument('--parallel', default=True, help='if distribute or not')
     # distributed training parameters
     parser.add_argument('--world-size', default=1, type=int,
                         help='number of distributed processes')
@@ -63,7 +67,7 @@ def get_args():
 def get_dataset(name, image_set, transform):
     paths = {
         "coco": ('./coco/2017/', get_coco, 91),
-        #"coco_kp": ('/datasets01/COCO/022719/', get_coco_kp, 2)
+        # "coco_kp": ('/datasets01/COCO/022719/', get_coco_kp, 2)
     }
     p, ds_fn, num_classes = paths[name]
 
@@ -132,7 +136,7 @@ def main():
     # Parallel
     if args.parallel:
         print('Training parallel')
-        model = torch.nn.DataParallel(model).cuda()
+        model = torch.nn.DataParallel(model, device_ids=[args.gpu]).cuda()
         model_without_ddp = model.module
 
     # Optimizer
